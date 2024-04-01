@@ -1,9 +1,11 @@
 package com.softulp.recyclerview.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,50 +17,63 @@ import com.softulp.recyclerview.modelo.Pelicula;
 
 import java.util.List;
 
-public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerView.viewHolderInterno>{
+public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerView.ViewHolderMio>{
 
-    private List<Pelicula> listaPelis;
-    private Context context;
+    private List<Pelicula> listaPeliculas;
+    private Context contexto;
+
     private LayoutInflater li;
 
-    public AdapterRecyclerView(List<Pelicula> listaPelis, Context context, LayoutInflater li) {
-        this.listaPelis = listaPelis;
-        this.context = context;
+    public AdapterRecyclerView(List<Pelicula> listaPeliculas, Context contexto, LayoutInflater li) {
+        this.listaPeliculas = listaPeliculas;
+        this.contexto = contexto;
         this.li = li;
-    }
-
-    public class viewHolderInterno extends RecyclerView.ViewHolder{
-
-        TextView titulo, resenia;
-        ImageView img;
-
-        public viewHolderInterno(@NonNull View itemView) {
-            super(itemView);
-            titulo = itemView.findViewById(R.id.tvTitulo); //
-            resenia = itemView.findViewById(R.id.tvResenia); //
-            img = itemView.findViewById(R.id.ivFoto); //
-        }
     }
 
     @NonNull
     @Override
-    public AdapterRecyclerView.viewHolderInterno onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=li.inflate(R.layout.item,parent,false);
-        return new viewHolderInterno(view);
-    }
+    public ViewHolderMio onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = li.inflate(R.layout.item, parent, false);
+        return new ViewHolderMio(view);
+}
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterRecyclerView.viewHolderInterno holder, int position) {
-
-        Pelicula pelicula = listaPelis.get(position);
+    public void onBindViewHolder(@NonNull ViewHolderMio holder, int position) {
+        Pelicula pelicula = listaPeliculas.get(position);
         holder.titulo.setText(pelicula.getTitulo());
-        holder.resenia.setText(pelicula.getResenia());
-        holder.img.setImageResource(pelicula.getImg());
+        holder.resumen.setText(pelicula.getResenia());
+        holder.imagen.setImageResource(pelicula.getImg());
+
+        holder.boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(contexto, SegundaActivity.class);
+                intent.putExtra("pelicula", pelicula);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                contexto.startActivity(intent);
+
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return listaPelis.size();
+        return listaPeliculas.size();
+    }
+
+    public class ViewHolderMio extends RecyclerView.ViewHolder{
+        TextView titulo, resumen;
+        ImageView imagen;
+        Button boton;
+
+        public ViewHolderMio(@NonNull View itemView) {
+            super(itemView);
+            titulo=itemView.findViewById(R.id.tvTitulo);
+            resumen = itemView.findViewById(R.id.tvResumen);
+            imagen = itemView.findViewById(R.id.ivImagen);
+            boton = itemView.findViewById(R.id.btnDetalle);
+
+        }
     }
 }

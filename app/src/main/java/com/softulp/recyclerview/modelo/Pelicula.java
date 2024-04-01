@@ -1,6 +1,8 @@
 package com.softulp.recyclerview.modelo;
 
-public class Pelicula {
+import java.io.Serializable;
+
+public class Pelicula implements Serializable {
 
     private String titulo;
     private int img;

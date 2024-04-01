@@ -35,9 +35,10 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void crearLista(){
 
         ArrayList<Pelicula> pelis = new ArrayList<>();
-        pelis.add(new Pelicula("Alien", R.drawable.image20240327190611, "Hay espacio, hay aliens. Esta copada. :)", "Sigourney Weaver", "Ridley Scott"));
-        pelis.add(new Pelicula("Barbie", R.drawable.image20240327190622, "Hay muñeca y es todo rosita. Esta copada. :)", "Margot Robin", "Greta Gerwig"));
-        pelis.add(new Pelicula("Rapidos y furiosos", R.drawable.image20240327190858, "Hay autos y es estan todos furiosos. Esta copada. :)", "Vind Diesel, Paul Walker", "John Singleton"));
+        pelis.add(new Pelicula("Alien", R.drawable.alien, "Hay espacio, hay aliens. Esta copada. :)", "Sigourney Weaver", "Ridley Scott"));
+        pelis.add(new Pelicula("Barbie", R.drawable.barbie, "Hay muñeca y es todo rosita. Esta copada. :)", "Margot Robin", "Greta Gerwig"));
+        pelis.add(new Pelicula("Mas rapidos y mas furiosos", R.drawable.rapido, "Hay autos y es estan todos furiosos. Esta copada. :)", "Vind Diesel, Paul Walker", "John Singleton"));
+        pelis.add(new Pelicula("La monja", R.drawable.monja, "No me gusto me dio miedito :( sali llorando, sigo traumado", "Luciana Zalasar, Guido Kasca", "John Singleton"));
         listaPelis.setValue(pelis);
     }
 }

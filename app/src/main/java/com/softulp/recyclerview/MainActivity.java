@@ -1,6 +1,7 @@
 package com.softulp.recyclerview;
 
 import android.os.Bundle;
+import android.widget.Adapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -17,31 +18,30 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MainActivityViewModel mv;
     private ActivityMainBinding binding;
-
-    private MainActivityViewModel vm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        vm= ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(MainActivityViewModel.class);
-
-        vm.getListaPelis().observe(this, new Observer<List<Pelicula>>() {
+        mv = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(MainActivityViewModel.class);
+        mv.getListaPelis().observe(this, new Observer<List<Pelicula>>() {
             @Override
             public void onChanged(List<Pelicula> peliculas) {
-                AdapterRecyclerView ia=new AdapterRecyclerView(peliculas,MainActivity.this,getLayoutInflater());
-                GridLayoutManager glm=new GridLayoutManager(MainActivity.this,2,GridLayoutManager.VERTICAL,false);
-                RecyclerView rc=binding.rvListaPelis;
-                rc.setLayoutManager(glm);
-                rc.setAdapter(ia);
+                AdapterRecyclerView adapter = new AdapterRecyclerView(peliculas,MainActivity.this,getLayoutInflater());
+                GridLayoutManager gl = new GridLayoutManager(MainActivity.this, 2, GridLayoutManager.VERTICAL,false);
+                RecyclerView rv = binding.rvListaPelis;
+                rv.setLayoutManager(gl);
+                rv.setAdapter(adapter);
             }
         });
-        vm.crearLista(); //
+
+        mv.crearLista();
     }
 
 
